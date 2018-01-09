@@ -35,8 +35,8 @@ def main():
     #plt.show()
 
     # 百度OCR API
-    api_key = 'vkSrxs5BBia60i9LzAdyzINP'
-    api_secret = 'ReugNU3rlLd2PXBUHuxTcKqf2TqV1GsU'
+    api_key = ''
+    api_secret = ''
 
 
     # 获取token
