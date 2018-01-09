@@ -76,7 +76,7 @@ def main():
     print("答案为:{}".format(last_answer_result))
 
     query_str=result+" "+last_answer_result
-    print("问题问题：{}".format(query_str))
+    print("问题：{}".format(query_str))
     query_str = urllib.parse.quote(query_str)
     webbrowser.open('https://zhidao.baidu.com/search?lm=0&rn=10&pn=0&fr=search&word='+query_str)
     #webbrowser.open('https://iask.sina.com.cn/search?searchWord='+query_str)
