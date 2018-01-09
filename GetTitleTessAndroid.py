@@ -29,5 +29,6 @@ tessdata_dir_config = '--tessdata-dir "C:\\Program Files (x86)\\Tesseract-OCR\\t
 # lang 指定中文简体
 text = pytesseract.image_to_string(region, lang='chi_sim', config=tessdata_dir_config)
 text = text.replace("\n", "")[2:]
-print(text)
-webbrowser.open('https://baidu.com/s?wd='+text)
+print("获取到问题：{}".format(text))
+#webbrowser.open('https://baidu.com/s?wd='+text)
+webbrowser.open('https://zhidao.baidu.com/search?lm=0&rn=10&pn=0&fr=search&word='+text)

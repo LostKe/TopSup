@@ -27,7 +27,7 @@ def main():
 
     # 用 matplot 查看测试分辨率，切割
 
-    region = img.crop((50, 350, 1000, 560)) # 坚果 pro1
+    region = img.crop((50, 350, 1000, 1200)) # 坚果 pro1
     #region = img.crop((75, 315, 1167, 789)) # iPhone 7P
 
     #im = plt.imshow(img, animated=True)
@@ -35,8 +35,8 @@ def main():
     #plt.show()
 
     # 百度OCR API
-    api_key = ''
-    api_secret = ''
+    api_key = 'vkSrxs5BBia60i9LzAdyzINP'
+    api_secret = 'ReugNU3rlLd2PXBUHuxTcKqf2TqV1GsU'
 
 
     # 获取token
@@ -57,15 +57,29 @@ def main():
     r = requests.post('https://aip.baidubce.com/rest/2.0/ocr/v1/general_basic',
                   params={'access_token': token}, data={'image': base64_data})
     result = ''
-    for i in r.json()['words_result']:
-        result += i['words']
-    result_array = result.split(".", 1)
-    if result_array[0].isdigit():
-        result = result_array[1]
-    print("获取到问题：{}".format(result))
-    result = urllib.parse.quote(result)
-    webbrowser.open('https://zhidao.baidu.com/search?lm=0&rn=10&pn=0&fr=search&word='+result)
-    #webbrowser.open('https://iask.sina.com.cn/search?searchWord='+result)
+    last_qustion_result=''
+    last_answer_result=''
+    jsonResult=r.json()['words_result']
+    resultLen=len(jsonResult)
+    qustion_result=jsonResult[0:resultLen-3]
+    for i in qustion_result:
+        last_qustion_result+=i['words']
+    last_qustion_result_array=last_qustion_result.split(".", 1)
+    if last_qustion_result_array[0].isdigit():
+        result = last_qustion_result_array[1]
+    else:
+        result=last_qustion_result
+    print("问题为:{}".format(result))
+    answer_result=jsonResult[resultLen-3:resultLen]
+    for i in answer_result:
+        last_answer_result=last_answer_result+i['words']+","
+    print("答案为:{}".format(last_answer_result))
+
+    query_str=result+" "+last_answer_result
+    print("问题问题：{}".format(query_str))
+    query_str = urllib.parse.quote(query_str)
+    webbrowser.open('https://zhidao.baidu.com/search?lm=0&rn=10&pn=0&fr=search&word='+query_str)
+    #webbrowser.open('https://iask.sina.com.cn/search?searchWord='+query_str)
 
 
 if __name__ == '__main__':
